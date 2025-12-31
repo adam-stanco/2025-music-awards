@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2025 Music Awards</title>
+  <style>
+    /* 
+      Design System: Autumnal, Restrained
+      Accent philosophy: One dominant red family; no competing hues
+      Contrast strategy: Value contrast over saturation
+    */
+    :root {
+      /* Background / Canvas */
+      --bg-obsidian: #141314;
+      /* Surface / Panels */
+      --bg-surface: #1F1D1F;
+      /* Borders / Dividers */
+      --border-ash: #2E2B2E;
+
+      /* Primary Accents (Red family) */
+      --accent-crimson: #8F2E3E;
+      --accent-garnet: #6F1F2F;
+      --accent-rose: #B46A7A;
+
+      /* Secondary Accents */
+      --accent-mauve: #6C5961;
+      --accent-plum: #4A3A41;
+
+      /* Typography */
+      --text-primary: #E6E2E3;
+      --text-secondary: #B7B1B4;
+      --text-disabled: #7A7377;
+
+      /* Semantic */
+      --success: #6E7A6A;
+      --warning: #9A5A4A;
+      --error: #7A1E2A;
+
+      /* Gradients */
+      --gradient-accent: linear-gradient(135deg, #8F2E3E 0%, #6F1F2F 100%);
+      --border-subtle: rgba(143, 46, 62, 0.15);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+      background: var(--bg-obsidian);
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.7;
+      /* Subtle atmospheric gradient - very muted */
+      background-image: 
+        radial-gradient(ellipse at 20% 0%, rgba(143, 46, 62, 0.04) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 100%, rgba(74, 58, 65, 0.03) 0%, transparent 50%);
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Hero Section */
+    header {
+      text-align: center;
+      padding: 80px 0 60px;
+      position: relative;
+    }
+
+    header::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 1px;
+      background: var(--accent-crimson);
+      opacity: 0.6;
+    }
+
+    h1 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: 600;
+      letter-spacing: 2px;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+    }
+
+    .subtitle {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.1rem;
+      font-weight: 400;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent-rose);
+    }
+
+    .preamble {
+      max-width: 750px;
+      margin: 50px auto 70px;
+      font-size: 1.15rem;
+      font-weight: 400;
+      color: var(--text-secondary);
+      text-align: center;
+      font-style: italic;
+      padding: 0 20px;
+      line-height: 1.9;
+    }
+
+    /* Section Titles */
+    .section-title {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.6rem;
+      font-weight: 500;
+      margin-bottom: 40px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      letter-spacing: 1px;
+    }
+
+    .section-title::before,
+    .section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border-ash);
+    }
+
+    .section-title span {
+      color: var(--text-primary);
+    }
+
+    /* Albums Grid */
+    .albums-section {
+      margin-bottom: 100px;
+    }
+
+    .albums-grid {
+      display: grid;
+      gap: 20px;
+    }
+
+    .album-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-ash);
+      border-radius: 3px;
+      padding: 32px;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 28px;
+      transition: border-color 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .album-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 2px;
+      height: 100%;
+      background: var(--accent-crimson);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .album-card:hover {
+      border-color: var(--accent-plum);
+    }
+
+    .album-card:hover::before {
+      opacity: 1;
+    }
+
+    .album-rank {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 2.5rem;
+      font-weight: 300;
+      color: var(--accent-mauve);
+      opacity: 0.4;
+      line-height: 1;
+      min-width: 60px;
+      text-align: center;
+    }
+
+    .album-content {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .album-title {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      letter-spacing: 0.5px;
+    }
+
+    .album-artist {
+      font-size: 0.9rem;
+      color: var(--accent-rose);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .album-takeaway {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      font-weight: 400;
+      margin-top: 8px;
+      line-height: 1.8;
+    }
+
+    .album-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 16px;
+      font-size: 0.8rem;
+      color: var(--accent-rose);
+      text-decoration: none;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      transition: color 0.3s ease, gap 0.3s ease;
+    }
+
+    .album-link:hover {
+      color: var(--text-primary);
+      gap: 12px;
+    }
+
+    .album-link svg {
+      width: 16px;
+      height: 16px;
+      fill: currentColor;
+    }
+
+    /* Songs Section */
+    .songs-section {
+      margin-bottom: 100px;
+    }
+
+    .songs-list {
+      display: grid;
+      gap: 8px;
+    }
+
+    .song-item {
+      display: grid;
+      grid-template-columns: 32px 1fr auto;
+      align-items: center;
+      gap: 20px;
+      padding: 16px 24px;
+      background: var(--bg-surface);
+      border: 1px solid transparent;
+      border-radius: 3px;
+      transition: all 0.3s ease;
+    }
+
+    .song-item:hover {
+      border-color: var(--border-ash);
+      background: rgba(143, 46, 62, 0.03);
+    }
+
+    .song-number {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 0.95rem;
+      color: var(--accent-mauve);
+      opacity: 0.6;
+      text-align: center;
+    }
+
+    .song-info {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .song-track {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+
+    .song-artist {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    .song-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: var(--accent-plum);
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .song-link:hover {
+      background: var(--accent-crimson);
+      color: var(--text-primary);
+    }
+
+    .song-link svg {
+      width: 16px;
+      height: 16px;
+      fill: currentColor;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 60px 0;
+      border-top: 1px solid var(--border-ash);
+      color: var(--text-disabled);
+      font-size: 0.9rem;
+    }
+
+    footer .heart {
+      color: var(--accent-crimson);
+    }
+
+    /* Responsive */
+    @media (max-width: 700px) {
+      .album-card {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .album-rank {
+        font-size: 2rem;
+        text-align: left;
+      }
+
+      .song-item {
+        grid-template-columns: 1fr auto;
+        padding: 14px 18px;
+      }
+
+      .song-number {
+        display: none;
+      }
+    }
+
+    /* Animations - more subtle */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .animate-in {
+      animation: fadeInUp 0.5s ease forwards;
+      opacity: 0;
+    }
+
+    .album-card:nth-child(1) { animation-delay: 0.1s; }
+    .album-card:nth-child(2) { animation-delay: 0.15s; }
+    .album-card:nth-child(3) { animation-delay: 0.2s; }
+    .album-card:nth-child(4) { animation-delay: 0.25s; }
+    .album-card:nth-child(5) { animation-delay: 0.3s; }
+
+    .song-item { animation: fadeInUp 0.4s ease forwards; opacity: 0; }
+    .song-item:nth-child(1) { animation-delay: 0.05s; }
+    .song-item:nth-child(2) { animation-delay: 0.08s; }
+    .song-item:nth-child(3) { animation-delay: 0.11s; }
+    .song-item:nth-child(4) { animation-delay: 0.14s; }
+    .song-item:nth-child(5) { animation-delay: 0.17s; }
+    .song-item:nth-child(6) { animation-delay: 0.2s; }
+    .song-item:nth-child(7) { animation-delay: 0.23s; }
+    .song-item:nth-child(8) { animation-delay: 0.26s; }
+    .song-item:nth-child(9) { animation-delay: 0.29s; }
+    .song-item:nth-child(10) { animation-delay: 0.32s; }
+  </style>
+  <!-- Cormorant Garamond for a refined serif look -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>2025 Music Awards</h1>
+      <p class="subtitle">Adam Stanco</p>
+    </header>
+
+    <p class="preamble">
+      2025 was a surprisingly blessed year for music. I spent the year listening casually without fixating on one 'golden album,' but looking back, the depth of quality was incredible. I had to cut far more than I expected to reach this final list.
+    </p>
+
+    <section class="albums-section">
+      <h2 class="section-title"><span>Albums of the Year</span></h2>
+      <div class="albums-grid">
+
+        <article class="album-card animate-in">
+          <div class="album-rank">01</div>
+          <div class="album-content">
+            <span class="album-artist">Sleep Token</span>
+            <h3 class="album-title">Even in Arcadia</h3>
+            <p class="album-takeaway">They leaned into their magic. Following their breakout success, this feels purpose-built to amplify the atmospheric technicality that made them famous. It's a deep, intentional record that proves they are only getting better.</p>
+            <a href="https://open.spotify.com/album/430635" target="_blank" rel="noopener" class="album-link">
+              Listen on Spotify
+              <svg viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+            </a>
+          </div>
+        </article>
+
+        <article class="album-card animate-in">
+          <div class="album-rank">02</div>
+          <div class="album-content">
+            <span class="album-artist">Various Artists</span>
+            <h3 class="album-title">Kimetsu No Yaiba (Demon Slayer) OST</h3>
+            <p class="album-takeaway">My workout partner for the last nine months. The genius of this OST is the character leitmotifs; hearing individual themes weave together and evolve during battle sequences provides a sense of progression that most albums can't match.</p>
+            <a href="https://open.spotify.com/playlist/37i9dQZF1DX69S7Y36r0n6" target="_blank" rel="noopener" class="album-link">
+              Listen on Spotify
+              <svg viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+            </a>
+          </div>
+        </article>
+
+        <article class="album-card animate-in">
+          <div class="album-rank">03</div>
+          <div class="album-content">
+            <span class="album-artist">Lorien Testard</span>
+            <h3 class="album-title">Clair Obscur: Expedition 33 OST</h3>
+            <p class="album-takeaway">It isn't hyperbole: this is the greatest video game soundtrack ever made. It's a staggering blend of progressive classical, funk, jazz, and metal: a rare score that is technically complex yet remains deeply emotionally resonant.</p>
+            <a href="https://open.spotify.com/album/123456" target="_blank" rel="noopener" class="album-link">
+              Listen on Spotify
+              <svg viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+            </a>
+          </div>
+        </article>
+
+        <article class="album-card animate-in">
+          <div class="album-rank">04</div>
+          <div class="album-content">
+            <span class="album-artist">Dreamwake</span>
+            <h3 class="album-title">The Lost Years</h3>
+            <p class="album-takeaway">A hidden gem out of Connecticut. Dreamwake has perfectly bridged the gap between heavy metalcore and retro synthwave. It's a niche aesthetic executed with moments that feel genuinely special and cinematic.</p>
+            <a href="https://open.spotify.com/album/789012" target="_blank" rel="noopener" class="album-link">
+              Listen on Spotify
+              <svg viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+            </a>
+          </div>
+        </article>
+
+        <article class="album-card animate-in">
+          <div class="album-rank">05</div>
+          <div class="album-content">
+            <span class="album-artist">Three Days Grace</span>
+            <h3 class="album-title">Alienation</h3>
+            <p class="album-takeaway">The ultimate 'Beautiful Mid' album. It's unapologetic, satisfying rock. The real draw is the return of OG frontman Adam Gontier; hearing him trade vocals with Matt Walst on tracks built for their dual-threat dynamic is a treat for long-time fans.</p>
+            <a href="https://open.spotify.com/album/345678" target="_blank" rel="noopener" class="album-link">
+              Listen on Spotify
+              <svg viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+            </a>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <section class="songs-section">
+      <h2 class="section-title"><span>Standout Tracks</span></h2>
+      <div class="songs-list">
+
+        <div class="song-item">
+          <span class="song-number">01</span>
+          <div class="song-info">
+            <span class="song-track">Infinite Baths & Emergence</span>
+            <span class="song-artist">Sleep Token</span>
+          </div>
+          <a href="https://open.spotify.com/track/1" target="_blank" rel="noopener" class="song-link" title="Listen">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </a>
+        </div>
+
+        <div class="song-item">
+          <span class="song-number">02</span>
+          <div class="song-info">
+            <span class="song-track">Searching for Tomorrow & Someone Who Can</span>
+            <span class="song-artist">Coheed & Cambria</span>
+          </div>
+          <a href="https://open.spotify.com/track/2" target="_blank" rel="noopener" class="song-link" title="Listen">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </a>
+        </div>
+
+        <div class="song-item">
+          <span class="song-number">03</span>
+          <div class="song-info">
+            <span class="song-track">Restart</span>
+            <span class="song-artist">Shrezzers</span>
+          </div>
+          <a href="https://open.spotify.com/track/3" target="_blank" rel="noopener" class="song-link" title="Listen">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </a>
+        </div>
+
+        <div class="song-item">
+          <span class="song-number">04</span>
+          <div class="song-info">
+            <span class="song-track">Afterglow & Stargazer</span>
+            <span class="song-artist">Dreamwake</span>
+          </div>
+          <a href="https://open.spotify.com/track/4" target="_blank" rel="noopener" class="song-link" title="Listen">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </a>
+        </div>
+
+        <div class="song-item">
+          <span class="song-number">05</span>
+          <div class="song-info">
+            <span class="song-track">Bekhauf</span>
+            <span class="song-artist">Bloodywood</span>
+          </div>
+          <a href="https://open.spotify.com/track/5" target="_blank" rel="noopener" class="song-link" title="Listen">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </a>
+        </div>
+
+        <div class="song-item">
+          <span class="song-number">06</span>
+          <div class="song-info">
+            <span class="song-track">Zombie Lady & Next Summer</span>
+            <span class="song-artist">Damiano David</span>
+          </div>
+          <a href="https://open.spotify.com/track/6" target="_blank" rel="noopener" class="song-link" title="Listen">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </a>
+        </div>
+
+        <div class="song-item">
+          <span class="song-number">07</span>
+          <div class="song-info">
+            <span class="song-track">We Lost / Lumière / Alicia</span>
+            <span class="song-artist">Lorien Testard</span>
+          </div>
+          <a href="https://open.spotify.com/track/7" target="_blank" rel="noopener" class="song-link" title="Listen">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </a>
+        </div>
+
+        <div class="song-item">
+          <span class="song-number">08</span>
+          <div class="song-info">
+            <span class="song-track">Akaza vs. Giyu & Tanjiro</span>
+            <span class="song-artist">Diegor Mitre</span>
+          </div>
+          <a href="https://www.youtube.com/results?search_query=Diegor+Mitre+Akaza+vs+Giyu" target="_blank" rel="noopener" class="song-link" title="Watch on YouTube">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </a>
+        </div>
+
+        <div class="song-item">
+          <span class="song-number">09</span>
+          <div class="song-info">
+            <span class="song-track">The Devil In You</span>
+            <span class="song-artist">Alesti</span>
+          </div>
+          <a href="https://open.spotify.com/track/8" target="_blank" rel="noopener" class="song-link" title="Listen">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </a>
+        </div>
+
+        <div class="song-item">
+          <span class="song-number">10</span>
+          <div class="song-info">
+            <span class="song-track">Apologies</span>
+            <span class="song-artist">Three Days Grace</span>
+          </div>
+          <a href="https://open.spotify.com/track/9" target="_blank" rel="noopener" class="song-link" title="Listen">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <footer>
+      <p>Curated with <span class="heart">♥</span> • 2025 • One-shot by Opus 4.5 in Cursor</p>
+    </footer>
+  </div>
+</body>
+</html>
